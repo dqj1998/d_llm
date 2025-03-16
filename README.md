@@ -10,7 +10,7 @@ For future: dealing with ”For simplicity, we're not computing total loss here�
 20241103
 the order of coding for rnn extantion: rnn, adding tanh_activation into activations, train_rnn
 
-'''
+```
 project/
 ├── matrix.h
 ├── matrix.c
@@ -31,7 +31,7 @@ project/
 ├── train_rnn.h
 ├── train_rnn.c
 ├── main.c                // 可以有多个 main 文件，针对不同的模型
-'''
+```
 
 
 20250316 XOR got right by changing init to xavier_initialization in neural_network
