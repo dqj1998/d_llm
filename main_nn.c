@@ -14,7 +14,7 @@ typedef enum {
     DATASET_TYPE_XOR
 } DatasetType;
 
-void train_network(DatasetType dataset_type, NeuralNetwork *nn) {
+void train_network(DatasetType dataset_type, NeuralNetwork *nn, int epochs, float learning_rate) {
     // Create the dataset based on type
     Matrix **inputs;
     Matrix **targets;
@@ -25,10 +25,6 @@ void train_network(DatasetType dataset_type, NeuralNetwork *nn) {
     } else if (dataset_type == DATASET_TYPE_XOR) {
         create_xor_dataset(&inputs, &targets, &dataset_size);
     }
-
-    // Training parameters
-    int epochs = 10000;
-    float learning_rate = 0.01;
 
     // Train the neural network
     train(nn, inputs, targets, dataset_size, epochs, learning_rate);
@@ -80,16 +76,20 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    // Training parameters
+    int epochs = 10000;
+    float learning_rate = 0.01;
+
     // Define network architecture
     int input_size = 2;
-    int hidden_size = 4; // Can be adjusted
+    int hidden_size = 8; //8;//4; // Can be adjusted
     int output_size = 2;
 
     // Initialize neural network
     NeuralNetwork *nn = initialize_network(input_size, hidden_size, output_size);
 
     // Train the network first
-    train_network(dataset_type, nn);  // Use all examples for training
+    train_network(dataset_type, nn, epochs, learning_rate);  // Use all examples for training
 
     // Then perform inference
     infer_network(dataset_type, nn);
