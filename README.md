@@ -57,3 +57,4 @@ project/
 
 20250316 XOR got right by changing init to xavier_initialization in neural_network
 
+20250322 Trained RNN, and got right results after changing sequence_length from 1 to 3
