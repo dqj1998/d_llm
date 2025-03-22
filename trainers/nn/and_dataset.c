@@ -11,10 +11,10 @@ static const float input_patterns[4][2] = {
 };
 
 static const float target_patterns[4][2] = {
-    {1, 0},   // Output: 0 (one-hot encoded)
-    {1, 0},   // Output: 0
-    {1, 0},   // Output: 0
-    {0, 1}    // Output: 1
+    {1, 0}, // Output 0 represented as [1, 0]
+    {1, 0}, // Output 0 represented as [1, 0]
+    {1, 0}, // Output 0 represented as [1, 0]
+    {0, 1}  // Output: 1
 };
 
 /**

@@ -1,9 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "rnn.h"
-#include "matrix_ops.h"
-#include "activations.h"
+#include "../../models/nn/matrix_ops.h"
+#include "../../models/nn/activations.h"
+
+// Initialize weights using Xavier initialization method
+void xavier_initialization(Matrix *matrix) {
+    int rows = matrix->rows;
+    int cols = matrix->cols;
+    float scale = sqrt(2.0 / (rows + cols));
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            matrix->data[i][j] = ((float)rand() / RAND_MAX) * 2 * scale - scale;
+        }
+    }
+}
 
 // Initialize the RNN with random weights and zero biases
 RNN* initialize_rnn(int input_size, int hidden_size, int output_size) {
@@ -19,24 +32,10 @@ RNN* initialize_rnn(int input_size, int hidden_size, int output_size) {
     rnn->b_h = create_matrix(1, hidden_size);
     rnn->b_y = create_matrix(1, output_size);
 
-    // Initialize weights with small random values
-    // For simplicity, we'll initialize weights to small random values between -0.1 and 0.1
-    srand((unsigned int)time(NULL));
-    for (int i = 0; i < input_size; i++) {
-        for (int j = 0; j < hidden_size; j++) {
-            rnn->W_xh->data[i][j] = ((float)rand() / RAND_MAX) * 0.2 - 0.1;
-        }
-    }
-    for (int i = 0; i < hidden_size; i++) {
-        for (int j = 0; j < hidden_size; j++) {
-            rnn->W_hh->data[i][j] = ((float)rand() / RAND_MAX) * 0.2 - 0.1;
-        }
-    }
-    for (int i = 0; i < hidden_size; i++) {
-        for (int j = 0; j < output_size; j++) {
-            rnn->W_hy->data[i][j] = ((float)rand() / RAND_MAX) * 0.2 - 0.1;
-        }
-    }
+    // Initialize weights using Xavier initialization method
+    xavier_initialization(rnn->W_xh);
+    xavier_initialization(rnn->W_hh);
+    xavier_initialization(rnn->W_hy);
 
     // Initialize biases and previous hidden state to zero
     for (int i = 0; i < hidden_size; i++) {

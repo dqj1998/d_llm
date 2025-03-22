@@ -1,7 +1,7 @@
 #ifndef RNN_H
 #define RNN_H
 
-#include "matrix.h"
+#include "../nn/matrix.h"
 
 // RNN structure definition
 typedef struct {
