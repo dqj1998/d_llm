@@ -7,13 +7,13 @@ The order of coding: matrix, matrix_ops, activations, neural_network, forward, b
 For future: dealing with "For simplicity, we're not computing total loss here"
 
 Compile NN:
-gcc -g -o bin/main_nn main_nn.c trainers/nn/xor_dataset.c trainers/nn/and_dataset.c trainers/nn/train.c \
+gcc -g -o bin/main_nn main_nn.c trainers/nn/or_dataset.c  trainers/nn/xor_dataset.c trainers/nn/and_dataset.c trainers/nn/train.c \
 models/nn/backprop.c models/nn/forward.c models/nn/neural_network.c \
 models/nn/activations.c models/nn/matrix.c models/nn/matrix_ops.c trainers/nn/loss.c -lm
 
 Compile RNN:
 gcc -g -o bin/main_rnn main_rnn.c \
-trainers/nn/xor_dataset.c trainers/nn/and_dataset.c \
+trainers/nn/xor_dataset.c trainers/nn/and_dataset.c trainers/nn/or_dataset.c \
 trainers/rnn/train_rnn.c \
 models/nn/matrix.c  models/nn/matrix_ops.c models/nn/activations.c \
 models/rnn/rnn.c -lm

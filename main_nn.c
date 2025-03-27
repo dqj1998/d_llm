@@ -7,11 +7,13 @@
 #include "trainers/nn/train.h"
 #include "trainers/nn/xor_dataset.h"
 #include "trainers/nn/and_dataset.h"
+#include "trainers/nn/or_dataset.h"
 
 // Enum to represent dataset types
 typedef enum {
     DATASET_TYPE_AND,
-    DATASET_TYPE_XOR
+    DATASET_TYPE_XOR,
+    DATASET_TYPE_OR
 } DatasetType;
 
 void train_network(DatasetType dataset_type, NeuralNetwork *nn, int epochs, float learning_rate) {
@@ -24,6 +26,8 @@ void train_network(DatasetType dataset_type, NeuralNetwork *nn, int epochs, floa
         create_and_dataset(&inputs, &targets, &dataset_size);
     } else if (dataset_type == DATASET_TYPE_XOR) {
         create_xor_dataset(&inputs, &targets, &dataset_size);
+    } else if (dataset_type == DATASET_TYPE_OR) {
+        create_or_dataset(&inputs, &targets, &dataset_size);
     }
 
     // Train the neural network
@@ -43,6 +47,8 @@ void infer_network(DatasetType dataset_type, NeuralNetwork *network) {
         create_and_dataset(&inputs, &targets, &dataset_size);
     } else if (dataset_type == DATASET_TYPE_XOR) {
         create_xor_dataset(&inputs, &targets, &dataset_size);
+    } else if (dataset_type == DATASET_TYPE_OR) {
+        create_or_dataset(&inputs, &targets, &dataset_size);
     }
 
     // Show dataset_type in the output
@@ -50,7 +56,10 @@ void infer_network(DatasetType dataset_type, NeuralNetwork *network) {
         printf("\nTesting the AND neural network:\n");
     } else if (dataset_type == DATASET_TYPE_XOR) {
         printf("\nTesting the XOR neural network:\n");
+    } else if (dataset_type == DATASET_TYPE_OR) {
+        printf("\nTesting the OR neural network:\n");
     }
+
     for (int i = 0; i < dataset_size; i++) {
         // Assuming we have a loaded model here
         Matrix *output = forward_pass(network, inputs[i]);
@@ -73,6 +82,8 @@ int main(int argc, char *argv[]) {
     if (argc > 1) {
         if (!strcmp(argv[1], "xor")) {
             dataset_type = DATASET_TYPE_XOR;
+        } else if (!strcmp(argv[1], "or")) {
+            dataset_type = DATASET_TYPE_OR; // Assuming OR dataset uses AND dataset type
         }
     }
 
